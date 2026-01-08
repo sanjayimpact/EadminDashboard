@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useCheckTwoStepQuery, useTwoStepCheckMutation, useTwoStepVerifyMutation } from "../store/slice/apiSlice";
 import { check2step } from "../store/slice/globalSlice";
 import { setlocalstorage } from "../utils/HelperFunctions/localstorage";
+import { useCheckTwoStepQuery, useTwoStepCheckMutation, useTwoStepVerifyMutation } from "../store/slice/api/twostep";
 
 const Settings = () => {
   const[enable2FA,{isSuccess,isError,error}] = useTwoStepVerifyMutation();
@@ -50,14 +50,6 @@ const Settings = () => {
 
 
 
-useEffect(()=>{
-  if(data?.isLoading){
-    return null
-  }
-  if(data?.status){
-    dispatch(check2step(data?.twostep))
-  }
-},[data,dispatch])
 
   
   return (

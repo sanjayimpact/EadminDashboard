@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetMyInfoQuery } from "../store/slice/apiSlice";
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setlocalstorage } from "../utils/HelperFunctions/localstorage";

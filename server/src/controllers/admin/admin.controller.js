@@ -58,7 +58,9 @@ export const loginadmin = async(req,res)=>{
 });
 
   //create jwt token
-    return res.status(200).json({message:"Login successful",status:true,data:checkemail.email,token:token});
+  
+
+    return res.status(200).json({message:"Login successful",status:true,data:checkemail.email,token:token,twostep:checkemail?.twoFactorEnabled});
 
     }catch(err){
         console.log(err);
@@ -75,6 +77,7 @@ export const refreshtoken  =async(req,res)=>{
     }
     try{
         const decoded = jwt.verify(refreshtoken,process.env.rfsecretkey);
+ 
         const newtoken = jwt.sign({subid:decoded.subid},process.env.secretkey,{expiresIn:"2m"});
         return res.status(200).json({message:"New token generated",status:true,token:newtoken});
     }catch(err){
@@ -187,5 +190,18 @@ export const check2fa = async(req,res)=>{
     }catch(err){
         console.log(err);
         return res.status(500).json({message:err.message,status:false})
+    }
+}
+
+
+export const verifylogin2fa = async(req,res)=>{
+    const {otp} = req.body;
+    const id  = req.userId;
+    console.log(id);
+    return;
+    try{
+
+    }catch(err){
+        console.log(err);
     }
 }
