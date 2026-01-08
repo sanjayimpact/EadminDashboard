@@ -6,10 +6,11 @@ import { useCheckTwoStepQuery, useTwoStepCheckMutation, useTwoStepVerifyMutation
 
 const Settings = () => {
   const[enable2FA,{isSuccess,isError,error}] = useTwoStepVerifyMutation();
-  const {data} = useCheckTwoStepQuery();
- 
+  const {data,isloading} = useCheckTwoStepQuery();
+
   const myinfo = useSelector((state) => state.auth.admindata);
   const my2step = useSelector((state)=>state.global.twostep);
+  console.log(my2step);
 
   const[qrCode,setQrCode] = useState(null);
   const [otp, setOtp] = useState("");
@@ -48,7 +49,14 @@ const Settings = () => {
  
  }
 
-
+useEffect(()=>{
+  if(data?.isloading){
+    return null
+  }
+  if(data?.status){
+    dispatch(check2step(data?.twostep))
+  }
+},[data])
 
 
   

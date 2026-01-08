@@ -11,15 +11,15 @@ const PublicRoute = () => {
     return null;
   }
 
- if (twostep) {
-    return (
-      <Navigate
-        to="/2step"
-        replace
-        state={{ from: location }}
-      />
-    );
-  }
+//  if (twostep) {
+//     return (
+//       <Navigate
+//         to="/2step"
+//         replace
+//         state={{ from: location }}
+//       />
+//     );
+//   }
   if (isLoggedIn) {
     return <Navigate to="/dashboard" replace state={{ from: location }} />;
   }

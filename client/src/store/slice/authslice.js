@@ -14,10 +14,10 @@ const authSlice = createSlice({
     },
     reducers:{
         setCredentials:(state, action)=>{
-            console.log(action);
+         
      
             state.accessToken = action.payload.token;
-            state.isLoggedIn = action.payload.login;
+             state.isLoggedIn=true
             state.isAuthChecked = true;
             state.twostep = action.payload.twostep
             
@@ -35,6 +35,10 @@ const authSlice = createSlice({
             
             state.admindata.name = action.payload.name;
             state.admindata.email = action.payload.email;
+        },
+        setislogin:(state)=>{
+            state.isLoggedIn=true;
+              state.twostep = false;
         }
     }
 })
