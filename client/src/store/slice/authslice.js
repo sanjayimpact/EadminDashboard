@@ -14,9 +14,10 @@ const authSlice = createSlice({
     },
     reducers:{
         setCredentials:(state, action)=>{
+            console.log(action);
      
             state.accessToken = action.payload.token;
-            state.isLoggedIn = false;
+            state.isLoggedIn = action.payload.login;
             state.isAuthChecked = true;
             state.twostep = action.payload.twostep
             
