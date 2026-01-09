@@ -2,17 +2,13 @@ import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { admindata, logout } from "../store/slice/authslice";
-import { useGetMyInfoQuery, useLogoutUserMutation } from "../store/slice/apiSlice";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { getlocalstorage, removelocalstorage, setlocalstorage } from "../utils/HelperFunctions/localstorage";
 import { useEffect } from "react";
+import { useGetMyInfoQuery, useLogoutUserMutation } from "../store/slice/api/userlogin";
 const DashboardLayout = () => {
-  const {data} = useGetMyInfoQuery();
-  
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
  const myinfo = useSelector((state)=>state.auth.admindata);
 
   const [logoutuser] = useLogoutUserMutation();

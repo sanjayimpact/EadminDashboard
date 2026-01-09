@@ -6,6 +6,7 @@ const authSlice = createSlice({
         accessToken:null,
         isLoggedIn:false,
         isAuthChecked:false,
+        twostep:false,
         admindata:{
             name:null,
             email:null
@@ -13,15 +14,19 @@ const authSlice = createSlice({
     },
     reducers:{
         setCredentials:(state, action)=>{
-       
-            state.accessToken = action.payload;
-            state.isLoggedIn = true;
+         
+     
+            state.accessToken = action.payload.token;
+             state.isLoggedIn=true
             state.isAuthChecked = true;
+            state.twostep = action.payload.twostep
+            
         },
         logout:(state)=>{
             state.accessToken = null;
             state.isLoggedIn = false;
             state.isAuthChecked = true;
+            state.twostep=false;
         },
         setrefresh:(state)=>{
             state.isAuthChecked = true;
@@ -30,6 +35,10 @@ const authSlice = createSlice({
             
             state.admindata.name = action.payload.name;
             state.admindata.email = action.payload.email;
+        },
+        setislogin:(state)=>{
+            state.isLoggedIn=true;
+              state.twostep = false;
         }
     }
 })

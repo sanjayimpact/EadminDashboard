@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { useGetMyInfoQuery, useRefreshTokenQuery } from './store/slice/apiSlice'
 import { RouterProvider } from 'react-router-dom';
 import { Router } from './Routes/routes';
 import { setCredentials, setrefresh } from './store/slice/authslice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRefreshTokenQuery } from './store/slice/api/userlogin';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,7 +27,7 @@ useEffect(()=>{
       dispatch(setrefresh());
     }
     if(data?.status){
-      dispatch(setCredentials(data?.token));
+      dispatch(setCredentials({token:data?.token}));
     }
     if(error?.status=="FETCH_ERROR"){
      dispatch(setrefresh());

@@ -6,10 +6,11 @@ const ProtectedRoute = () => {
 
 
 
-  const { isLoggedIn, isAuthChecked } = useSelector(
+  const { isLoggedIn, isAuthChecked,twostep } = useSelector(
     (state) => state.auth
   );
     const location = useLocation();
+    
   if (!isAuthChecked) {
     return null;
   }

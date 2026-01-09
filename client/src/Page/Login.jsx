@@ -3,28 +3,32 @@ import { loginvalidation } from '../utils/validations/loginvalidation'
 import {useForm}  from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import withoutauth from '../Hoc/withoutauth'
-import { useLoginUserMutation } from '../store/slice/apiSlice'
+
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../store/slice/authslice'
 import { setlocalstorage } from '../utils/HelperFunctions/localstorage'
+import { useNavigate } from 'react-router-dom'
+import { useLoginUserMutation } from '../store/slice/api/userlogin'
 const Login = () => {
     const{register,handleSubmit,formState:{errors}} = useForm({
         resolver:yupResolver(loginvalidation)
     })
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const[adduser] = useLoginUserMutation();
 
     const onSubmit = async(formdata)=>{
-    console.log(formdata);
+ 
       try{
 
           let response = await adduser(formdata);
-          console.log(response);
+         
          const{data} = response;
          if(data?.status){
-          dispatch(setCredentials(data?.token));
+          dispatch(setCredentials({token:data?.token,twostep:data?.twostep}));
           setlocalstorage('currentpath','dashboard');
          }
+        
     
 
         }catch(err){

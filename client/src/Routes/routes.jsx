@@ -8,14 +8,22 @@ import PublicRoute from "../ProtectedRoute/PublicRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Consumers from "../Page/Consumer";
 import Products from "../Page/Products";
+import OtpVerifyForm from "../Page/Twostep";
 export const Router = createBrowserRouter([
+  {
+        path: "/2step",
+        element: <OtpVerifyForm/>,
+  }
+  ,
+
   {
     element:<PublicRoute/>,
     children:[
       {
         path: '/',
     element: <Login></Login>
-      }
+      },
+       
     ]
   },
   {
@@ -46,7 +54,8 @@ export const Router = createBrowserRouter([
       {
         path: "/products",
         element: <Products/>,
-      },
+      }
+     
         ]
       }
     ]
