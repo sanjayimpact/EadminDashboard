@@ -1,7 +1,7 @@
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Admin } from "../../models/admin/admin.models.js";
+import { Admin } from "../../models/admin/Admin.models.js";
 import speakeasy from "speakeasy";
 import qrcode from "qrcode";
 import dotenv from 'dotenv';
