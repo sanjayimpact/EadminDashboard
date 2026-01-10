@@ -18,13 +18,13 @@ jobs:
           node-version: 22
 
       - name: Build Docker frontend image
-        run: docker build -t sanjubora84/eadminclient:latest ./client
+        run: docker build -t sanjubora84/eadminclient:v1 ./client
       - name: Build Docker backend image
-        run: docker build -t sanjubora84/eadminbackend:latest ./server
+        run: docker build -t sanjubora84/eadminbackend:v1 ./server
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Push Docker frontend image
-        run: docker push sanjubora84/eadminclient:latest
+        run: docker push sanjubora84/eadminclient:v1
       - name: Push Docker Backend image
-        run: docker push sanjubora84/eadminbackend:latest
+        run: docker push sanjubora84/eadminbackend:v1
