@@ -5,58 +5,43 @@ import { setlocalstorage } from "../utils/HelperFunctions/localstorage";
 import { useCheckTwoStepQuery, useTwoStepCheckMutation, useTwoStepVerifyMutation } from "../store/slice/api/twostep";
 
 const Settings = () => {
-  const[enable2FA,{isSuccess,isError,error}] = useTwoStepVerifyMutation();
-  const {data,isloading} = useCheckTwoStepQuery();
-
+ 
   const myinfo = useSelector((state) => state.auth.admindata);
-  const my2step = useSelector((state)=>state.global.twostep);
-  console.log(my2step);
 
-  const[qrCode,setQrCode] = useState(null);
-  const [otp, setOtp] = useState("");
+
+
   const dispatch = useDispatch();
-  
-  const[verify2FA] = useTwoStepCheckMutation();
 
 
 
-  const handleEnable2FA = async()=>{
-    try{ 
-      const response = await enable2FA();
-     const{data} = response;
-   if(data.status){
-    setQrCode(data.data);
-   }
-    }catch(err){
-      console.log(err);
-    }
-  }
-  const handleVerifyOTP = async () => {
-    console.log("Verifying OTP:", otp);
-    try {
-     let response =  await verify2FA({token:otp});
-     console.log(response);
+
+  //   try{ 
+  //     const response = await enable2FA();
+  //    const{data} = response;
+  //  if(data.status){
+  //   setQrCode(data.data);
+  //  }
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  // }
+  // const handleVerifyOTP = async () => {
+  //   console.log("Verifying OTP:", otp);
+  //   try {
+  //    let response =  await verify2FA({token:otp});
+  //    console.log(response);
    
-      setQrCode(null);
-      setOtp("");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     setQrCode(null);
+  //     setOtp("");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
  const  handletheme =(e)=>{
   const{value} = e.target;
   setlocalstorage("theme",value)
  
  }
-
-useEffect(()=>{
-  if(data?.isloading){
-    return null
-  }
-  if(data?.status){
-    dispatch(check2step(data?.twostep))
-  }
-},[data])
 
 
   
@@ -129,9 +114,7 @@ useEffect(()=>{
           </div>
         </div>
 
-        <button disabled={my2step===true} onClick={handleEnable2FA} className="mt-4 text-sm text-indigo-600 hover:underline cursor-pointer">
-          Enable Two-Factor Authentication {my2step? ' ✅ ' :''}
-        </button>
+    
       </section>
 
       {/* Notifications */}
@@ -201,67 +184,7 @@ useEffect(()=>{
       </div>
 
     </div>
-  {qrCode && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center">
-    
-    {/* Overlay */}
-    <div
-      className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
-      onClick={() => setQrCode(null)} // optional close
-    />
 
-    {/* Modal */}
-    <div
-      className="
-        relative z-50 w-full max-w-md mx-4
-        rounded-xl bg-white p-6
-        shadow-xl
-        transform transition-all duration-300 ease-out
-        scale-100 opacity-100
-        animate-modal-in
-      "
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Enable Two-Factor Authentication
-        </h2>
-        <button
-          onClick={() => setQrCode(null)}
-          className="text-gray-400 hover:text-gray-600"
-        >
-          ✕
-        </button>
-      </div>
-
-      {/* Body */}
-      <p className="text-sm text-gray-600 mb-4 text-center">
-        Scan this QR code using Google Authenticator or Authy
-      </p>
-
-      <img
-        src={qrCode}
-        alt="2FA QR Code"
-        className="h-40 w-40 mx-auto mb-4"
-      />
-
-      <input
-        type="text"
-        placeholder="Enter 6-digit OTP"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-        className="w-full border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
-      />
-
-      <button
-        onClick={handleVerifyOTP}
-        className="w-full bg-indigo-600 text-white rounded-lg py-2 text-sm font-semibold hover:bg-indigo-500 transition"
-      >
-        Verify & Enable 2FA
-      </button>
-    </div>
-  </div>
-)}
 
     </>
     

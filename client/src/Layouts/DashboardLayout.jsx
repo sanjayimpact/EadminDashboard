@@ -10,7 +10,8 @@ import { useEffect } from "react";
 import { useGetMyInfoQuery, useLogoutUserMutation } from "../store/slice/api/userlogin";
 const DashboardLayout = () => {
  const myinfo = useSelector((state)=>state.auth.admindata);
-
+ const[isSidebarOpen, setIsSidebarOpen]  = useState();
+const{data} =useGetMyInfoQuery();
   const [logoutuser] = useLogoutUserMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
